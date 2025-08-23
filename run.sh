@@ -1,8 +1,8 @@
 #!/bin/bash
-DATABASE_DOCKER_NAME="mysql"
+DATABASE_DOCKER_NAME="springboot-testing-example-mysql"
 
 goal_database_start() {
-  docker run --detach --env MYSQL_ROOT_PASSWORD=sorravit --env MYSQL_USER=sorravit --env MYSQL_PASSWORD=sorravit --env MYSQL_DATABASE=big --name ${DATABASE_DOCKER_NAME} --publish 3306:3306 mysql
+  docker run --detach --env MYSQL_ROOT_PASSWORD=sorravit --env MYSQL_USER=sorravit --env MYSQL_PASSWORD=sorravit --env MYSQL_DATABASE=big --name ${DATABASE_DOCKER_NAME} --publish 3306:3306 mysql:8.0
 }
 goal_database_stop() {
   docker stop ${DATABASE_DOCKER_NAME}

@@ -1,6 +1,8 @@
 package sorravit.example.springboottestingexample.service;
 
 import org.springframework.stereotype.Service;
+import sorravit.example.springboottestingexample.exception.OrderNotFoundException;
+import sorravit.example.springboottestingexample.exception.RestaurantNotFoundException;
 import sorravit.example.springboottestingexample.model.MenuItem;
 import sorravit.example.springboottestingexample.model.Order;
 import sorravit.example.springboottestingexample.model.OrderItem;
@@ -30,7 +32,7 @@ public class OrderService {
 
     public Order getOrder(Long id) {
         return orderRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Order not found"));
+                .orElseThrow(() -> new OrderNotFoundException("Order not found with id " + id));
     }
 
     public Order updateOrderStatus(Long id, OrderStatus status) {
@@ -42,7 +44,7 @@ public class OrderService {
 
     private void validateOrder(Order order) {
         restaurantRepository.findById(order.getRestaurantId())
-                .orElseThrow(() -> new RuntimeException("Restaurant not found"));
+                .orElseThrow(() -> new RestaurantNotFoundException("Restaurant not found with id " + order.getRestaurantId()));
 
         if (order.getItems() == null || order.getItems().isEmpty()) {
             throw new RuntimeException("Order must contain at least one item");
